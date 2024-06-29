@@ -9,8 +9,16 @@ class Author(models.Model):
     age = models.PositiveIntegerField()
     email = models.EmailField()
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE) # on_delete=models.CASCADE Yazar Silinirse Yazarın Tüm Postları silinir
+    tags = models.ManyToManyField(Tag, blank=True) # blank=True Post oluşturlurken tags alanı boş bırakılabilir demek
+    
+
+
+
