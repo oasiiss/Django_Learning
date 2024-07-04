@@ -22,6 +22,9 @@ class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE) # on_delete=models.CASCADE Yazar Silinirse Yazarın Tüm Postları silinir
     tags = models.ManyToManyField(Tag, blank=True) # blank=True Post oluşturlurken tags alanı boş bırakılabilir demek
 
+    def __str__(self):
+        return self.title
+
 
 
 
