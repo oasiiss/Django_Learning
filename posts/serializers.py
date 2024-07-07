@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
 class TagSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     name = serializers.CharField(max_length=50)
 
 
 class AuthorSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     name = serializers.CharField(max_length=100)
     sur_name = serializers.CharField(max_length=100)
     age = serializers.IntegerField()
@@ -12,6 +14,7 @@ class AuthorSerializer(serializers.Serializer):
 
 
 class PostSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     title = serializers.CharField(max_length=100)
     content = serializers.CharField()
     created = serializers.DateTimeField()
