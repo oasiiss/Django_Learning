@@ -23,6 +23,7 @@ class PostView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+        
 class PostDetailView(APIView):
     def get(self, request, id):
         post = get_object_or_404(Post, id=id)
@@ -32,6 +33,16 @@ class PostDetailView(APIView):
     def put(self, request, id):
         post = get_object_or_404(Post, id=id)
         serializer = PostSerializer(post, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request, id):
+        post = get_object_or_404(Post, id=id)
+        serializer = PostSerializer(post, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()

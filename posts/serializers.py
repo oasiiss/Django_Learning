@@ -51,13 +51,15 @@ class PostSerializer(serializers.Serializer):
         return post
     
     def update(self, instance, validated_data):
-        instance.title = validated_data.get("title")
-        instance.content = validated_data.get("content")
-        instance.is_published = validated_data.get("is_published")
+        instance.title = validated_data.get("title", instance.title)
+        instance.content = validated_data.get("content", instance.content)
+        instance.is_published = validated_data.get("is_published", instance.is_published)
         
         author_id = validated_data.get("author_id")
-        author = get_object_or_404(Author, id=author_id)
-        instance.author = author
+        
+        if author_id:
+            author = get_object_or_404(Author, id=author_id)
+            instance.author = author
 
         tag_ids = validated_data.get("tag_ids", [])
         if tag_ids:
