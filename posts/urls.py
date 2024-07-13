@@ -1,11 +1,12 @@
-from django.urls import path
-from posts.views import PostView, PostDetailView, TagView, TagDetailView, AuthorView, AuthorDetailView
+from django.urls import path, include
+from posts.views import PostViewSet, AuthorViewSet, TagViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('posts', PostViewSet)
+router.register('authors', AuthorViewSet)
+router.register('tags', TagViewSet)
 
 urlpatterns = [
-    path('', PostView.as_view()),
-    path('<int:pk>/', PostDetailView.as_view()),
-    path('tags/', TagView.as_view()),
-    path('tags/<int:pk>/', TagDetailView.as_view()),
-    path('authors/', AuthorView.as_view()),
-    path('authors/<int:pk>/', AuthorDetailView.as_view())
+    path('', include(router.urls))
 ]
